@@ -1,6 +1,6 @@
 package com.daddys.coffee.service;
 
-import io.jsonwebtoken.Claims; 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts; 
 import io.jsonwebtoken.SignatureAlgorithm; 
 import io.jsonwebtoken.io.Decoders; 
@@ -17,7 +17,7 @@ import java.util.function.Function;
 @Component
 public class JwtService {
 
-    public static final String SECRET = "5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437";
+    public static final String SECRET = "3744564787657965966597657887696870980989070986945346344656876768";
     public String generateToken(String userName) {
         Map<String, Object> claims = new HashMap<>();
         return createToken(claims, userName);

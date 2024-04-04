@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 @Entity
 public class Product {
 
+
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
@@ -12,7 +13,7 @@ public class Product {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column
     private double price;
 
     @SuppressWarnings("unused") //needed by Hibernate
@@ -50,4 +51,7 @@ public class Product {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

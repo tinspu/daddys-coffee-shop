@@ -2,10 +2,13 @@ package com.daddys.coffee.controllers;
 
 import com.daddys.coffee.entities.Order;
 import com.daddys.coffee.entities.OrderItem;
+import com.daddys.coffee.entities.Product;
 import com.daddys.coffee.repositories.OrderItemRepository;
 import com.daddys.coffee.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -24,12 +27,12 @@ public class OrderController {
     }
 
     @GetMapping("/orders")
-    public List<Order> getOrders() {
-        return (List<Order>) orderRepository.findAll();
+    public ResponseEntity<List<Order>> getOrders() {
+        return ResponseEntity.ok((List<Order>) orderRepository.findAll());
     }
 
     @PostMapping(value = "/orders", consumes =  MediaType.APPLICATION_JSON_VALUE)
-    public Order addOrder(@RequestBody Order newOrder) {
+    public ResponseEntity<Order> addOrder(@RequestBody Order newOrder) {
         Order savedOrder = orderRepository.save(new Order(0L, LocalDateTime.now(), newOrder.getBuyersEmail(), new HashSet<>()));
 
         List<OrderItem> newOrderItems = newOrder.getOrderItems().stream().map(orderItem -> new OrderItem(
@@ -38,6 +41,8 @@ public class OrderController {
 
         List<OrderItem> savedOrderItems = orderItemRepository.saveAll(newOrderItems);
 
-        return new Order(savedOrder.getId(), savedOrder.getCreationDateTime(), savedOrder.getBuyersEmail(), new HashSet<>(savedOrderItems));
+        return new ResponseEntity<Order>( new Order(savedOrder.getId(),
+                                    savedOrder.getCreationDateTime(),
+                                    savedOrder.getBuyersEmail(), new HashSet<>(savedOrderItems)), HttpStatus.CREATED);
     }
 }

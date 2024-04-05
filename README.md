@@ -11,9 +11,7 @@
   ```
      .\mvnw spring-boot:run
   ```
-  that's it the app is running now ( at you can browser it @ http://localhost:8080/auth/welcome )
-  ## OPENAPI doc here 
-     ( http://localhost:8080/swagger-ui/index.html#/ )
+  that's it the app is running now ( at you can browser it @ http://localhost:8080/auth/welcome and OpenApi docs are here : http://localhost:8080/swagger-ui/index.html )
 
 # Using the API so now let's use API to Add some data
 

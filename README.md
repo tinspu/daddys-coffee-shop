@@ -1,21 +1,24 @@
-# Coffee Shop managment Backend 
+# Coffee Shop management Backend 
 
-  ## Requirments
+### Requirements
     - Java 17+
     - MYSQL -> create a schema named coffee here ( and get the credentials here src/main/resources/application.properties to match your env)
-  ## To install the dependancies go to the repo root folder and run
-  ```
-    > .\mvnw install
-  ```
-  ## To run the app run this 
-  ```
-     .\mvnw spring-boot:run
-  ```
-  that's it the app is running now ( at you can browser it @ http://localhost:8080/auth/welcome and OpenApi docs are here : http://localhost:8080/swagger-ui/index.html )
 
-# Using the API so now let's use API to Add some data
+- To install the dependencies abd build the app go to the repo's root folder and run
 
-##  Add users (/auth/addNewUser)
+  ```
+    .\mvnw install
+  ```
+### To run the app  
+  ```
+    .\mvnw spring-boot:run
+  ```
+  that's it, the app is running now, the OpenAPI docs can be browsed here : http://localhost:8080/swagger-ui/index.html )
+
+- To Use the API, let's Add a user through the API
+
+###  Add users 
+- (/auth/addNewUser)
 ```
 curl --location --request POST 'http://localhost:8080/auth/addNewUser' \
 --header 'Content-Type: application/json' \
@@ -26,7 +29,8 @@ curl --location --request POST 'http://localhost:8080/auth/addNewUser' \
 "roles" : "USER_ROLE"
 }'
 ```
-##  generate a token 
+###  generate a bearer token for the above user 
+- /auth/generateToken
 ```
 curl --location --request POST 'http://localhost:8080/auth/generateToken' \
 --header 'Content-Type: application/json' \
@@ -38,7 +42,7 @@ curl --location --request POST 'http://localhost:8080/auth/generateToken' \
  use the JWT token returned from the above call to communicate with the API to add products or create orders ( the orders are filtered by the currect user )
 e.g.
 
-##  create a product 
+###  create a product 
 ```
 curl --location --request POST 'http://localhost:8080/products' \
 --header 'Authorization: Bearer [THE_JWT_TOKEN_FROM_THE_ABOVE_CALL]' \
@@ -51,7 +55,7 @@ curl --location --request POST 'http://localhost:8080/products' \
 returns a json with a details and a productid
 
 ```
-##  create an order ( for the above product , we use the id ref from the above call response to determine the product id
+###  create an order ( for the above product , we use the id ref from the above call response to determine the product id
 ```
 curl --location --request POST 'http://localhost:8080/orders' \
 --header 'Authorization: Bearer [THE_JWT_TOKEN_FROM_THE_ABOVE_CALL]' \

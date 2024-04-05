@@ -11,7 +11,9 @@
   ```
      .\mvnw spring-boot:run
   ```
-  that's it the app is running now ( atyou can browser it @ http://localhost:8080/auth/welcome )
+  that's it the app is running now ( at you can browser it @ http://localhost:8080/auth/welcome )
+  ## OPENAPI doc here 
+     ( http://localhost:8080/swagger-ui/index.html#/ )
 
 # Using the API so now let's use API to Add some data
 
@@ -37,8 +39,6 @@ curl --location --request POST 'http://localhost:8080/auth/generateToken' \
 ```
  use the JWT token returned from the above call to communicate with the API to add products or create orders ( the orders are filtered by the currect user )
 e.g.
-## OPENAPI doc here 
-    - (http://localhost:8080/swagger-ui/index.html#/)
 
 ##  create a product 
 ```

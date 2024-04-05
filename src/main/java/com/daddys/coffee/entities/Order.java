@@ -14,7 +14,7 @@ import java.util.Objects;
 import java.util.Set;
 
 
-@Entity(name = "Orders")
+@Entity(name="Order_")
 public class Order {
 
     @Id
@@ -27,7 +27,7 @@ public class Order {
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     private final LocalDateTime creationDateTime;
 
-    @Column(nullable = false)
+    @Column
     private final String buyersEmail;
 
     @OneToMany(mappedBy = "parentOrder")

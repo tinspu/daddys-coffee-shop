@@ -4,6 +4,8 @@ import com.daddys.coffee.entities.Product;
 import com.daddys.coffee.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +23,9 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    public ResponseEntity<List<Product>> getProducts() {
-        return ResponseEntity.ok((List<Product>) productRepository.findAll());
+    public ResponseEntity<Page<Product>> getProducts(@RequestParam(defaultValue = "0") int page,
+                                                     @RequestParam(defaultValue = "10") int size) {
+        return ResponseEntity.ok((Page<Product>) productRepository.findAll(PageRequest.of(page, size)));
     }
 
     @PostMapping("/products")

@@ -14,7 +14,7 @@ public class OrderItem {
     @GeneratedValue(strategy=GenerationType.AUTO, generator="ORDER_ITEM_SEQUENCE")
     private final long id;
 
-    @OneToOne
+    @ManyToOne
     private final Product product;
 
     @Column(nullable = false)

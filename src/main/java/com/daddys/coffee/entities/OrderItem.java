@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.math.BigDecimal;
 import java.util.Objects;
 import jakarta.persistence.*;
+import lombok.Getter;
 
 @Entity
 public class OrderItem {
@@ -14,38 +15,41 @@ public class OrderItem {
     @GeneratedValue(strategy=GenerationType.AUTO, generator="ORDER_ITEM_SEQUENCE")
     private final long id;
 
+    @Column
+    private final BigDecimal price;
+
+    @Getter
     @ManyToOne
     private final Product product;
 
+    @Getter
     @Column(nullable = false)
     private final int quantity;
 
+    @Getter
     @ManyToOne
     @JoinColumn(name = "order_id")
     @JsonBackReference
     private final Order parentOrder;
 
-    public OrderItem(long id, Product product, int quantity, Order parentOrder) {
+    public OrderItem(long id, BigDecimal price, Product product, int quantity, Order parentOrder) {
         this.id = id;
+        this.price = price;
         this.product = product;
         this.quantity = quantity;
         this.parentOrder = parentOrder;
     }
 
     public OrderItem() {
-        this(0L, new Product(), UNSET_QUANTITY, new Order());
+        this(0L, BigDecimal.valueOf(0), new Product(), UNSET_QUANTITY, new Order());
     }
 
-    public OrderItem( Product product, int quantity, Order parentOrder) {
-        this(0L, product, quantity, parentOrder);
-    }
-
-    public Order getParentOrder() {
-        return parentOrder;
+    public OrderItem( BigDecimal price, Product product, int quantity, Order parentOrder) {
+        this(0L, price, product, quantity, parentOrder);
     }
 
     BigDecimal getAmount() {
-        return BigDecimal.valueOf(product.getPrice()).multiply(new BigDecimal(quantity));
+        return price.multiply(new BigDecimal(quantity));
     }
 
     @Override
@@ -54,6 +58,7 @@ public class OrderItem {
         if (o == null || getClass() != o.getClass()) return false;
         OrderItem orderItem = (OrderItem) o;
         return id == orderItem.id &&
+                price.equals(orderItem.price) &&
                 quantity == orderItem.quantity &&
                 product.equals(orderItem.product);
     }
@@ -61,14 +66,6 @@ public class OrderItem {
     @Override
     public int hashCode() {
         return Objects.hash(id);
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public int getQuantity() {
-        return quantity;
     }
 
 }
